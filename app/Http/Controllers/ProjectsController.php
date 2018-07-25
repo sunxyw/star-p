@@ -32,4 +32,9 @@ class ProjectsController extends Controller
 
         return redirect()->route('projects.show', $project)->with('success', '数据已保存');
     }
+
+    public function create()
+    {
+
+    }
 }
