@@ -5,10 +5,10 @@
 @section('content')
     <div class="btn-toolbar" role="toolbar">
         <div class="btn-group mr-2" role="group">
-            <button type="button" class="btn btn-primary">
+            <a href="{{ route('projects.create') }}" class="btn btn-primary">
                 <i class="fas fa-file-medical"></i>
                 新建
-            </button>
+            </a>
         </div>
 
         <div class="btn-group" role="group">
