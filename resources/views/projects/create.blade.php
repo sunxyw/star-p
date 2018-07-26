@@ -7,16 +7,29 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <form>
+                    <form id="create-form" action="{{ route('projects.store') }}" method="POST"
+                          enctype="multipart/form-data" onsubmit="return false;">
+                        @csrf
                         <div class="form-group">
                             <label for="name">项目名称</label>
-                            <input type="text" class="form-control" id="name">
+                            <input type="text" name="name" class="form-control" id="name" required>
                         </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="sync">
+
+                        <div class="form-group">
+                            <label for="info">项目介绍</label>
+                            <textarea name="info" id="info" required></textarea>
+                        </div>
+
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="image" id="image" accept="image/*">
+                            <label class="custom-file-label" for="image">选择代表图</label>
+                        </div>
+
+                        <div class="custom-control custom-checkbox mt-1">
+                            <input type="checkbox" name="sync" class="custom-control-input" id="sync">
                             <label class="custom-control-label" for="sync">同时提交审核</label>
                         </div>
-                        <button type="submit" class="btn btn-primary float-right mt-2">提交</button>
+                        <button type="submit" class="btn btn-primary float-right mt-2" id="submit">提交</button>
                     </form>
                 </div>
             </div>
@@ -41,4 +54,46 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(function () {
+            $(":file").change(function () {
+                var files = $(this).prop('files');//获取到文件列表
+
+                if (files.length === 0) {
+                    alert('请选择文件');
+                    return false;
+                } else {
+                    var reader = new FileReader();
+                    reader.readAsDataURL(files[0]);
+                    reader.onload = function (evt) {
+                        $("#image-f").attr("src", evt.target.result);
+                        $("#image-name").html(files[0].name);
+                        $("[for='image']").html(files[0].name);
+                    }
+                }
+            });
+
+            $("#submit").click(function () {
+                $.ajax({
+                    url: "{{ route('projects.store') }}",
+                    type: 'POST',
+                    cache: false,
+                    data: new FormData($('#create-form')[0]),
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        success("数据已保存");
+                        location.href = data;
+                    }
+                });
+
+                return false;
+            });
+
+            var editor = new Simditor({
+                textarea: $("textarea")
+            });
+        });
+    </script>
 @endsection

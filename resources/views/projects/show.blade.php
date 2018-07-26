@@ -2,10 +2,6 @@
 
 @section('title', '项目详情')
 
-@section('style')
-    <link href="{{ asset('css/simditor/simditor.css') }}" rel="stylesheet">
-@endsection
-
 @section('content')
     <div class="row">
         <div class="col-md-8">
@@ -14,7 +10,7 @@
                     <div class="row" id="p-info">
                         <div class="col-md-6">
                             <figure class="figure">
-                                <img id="image-f" src="{{ $project->image_url ?: 'http://iph.href.lu/400x300' }}"
+                                <img id="image-f" src="{{ $project->image_url }}"
                                      class="figure-img img-fluid rounded" width="400" height="300">
                                 <figcaption class="figure-caption"
                                             id="image-name">{{ $project->image ?: 'http://iph.href.lu/400x300' }}</figcaption>
@@ -23,7 +19,10 @@
 
                         <div class="col-md-6">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item h4">{{ $project->name }}</li>
+                                <span class="badge badge-secondary">{{ $project->status }}</span>
+                                <li class="list-group-item">
+                                    <h4>{{ $project->name }}</h4>
+                                </li>
                                 <li class="list-group-item">
                                     <b>负责人：</b>{{ $project->user->name }}
                                 </li>
@@ -71,7 +70,7 @@
                 </div>
                 <div class="card-body">
                     <form id="edit-form" action="{{ route('projects.update', $project) }}" method="POST"
-                          enctype="multipart/form-data">
+                          enctype="multipart/form-data" onsubmit="return false;">
                         @csrf
                         @method('PUT')
                         <div class="input-group input-group-sm mb-2">
@@ -79,7 +78,6 @@
                                 <span class="input-group-text">名称</span>
                             </div>
                             <input type="text" name="name" class="form-control" title="名称" value="{{ $project->name }}" required>
-
                         </div>
 
                         <textarea name="info" class="form-control" title="介绍" required>
@@ -98,14 +96,7 @@
             </div>
         </div>
     </div>
-@endsection
 
-@section('script')
-    @include('layouts._highlight')
-    <script src="{{ asset('js/simditor/module.min.js') }}"></script>
-    <script src="{{ asset('js/simditor/hotkeys.min.js') }}"></script>
-    <script src="{{ asset('js/simditor/uploader.min.js') }}"></script>
-    <script src="{{ asset('js/simditor/simditor.min.js') }}"></script>
     <script>
         $(function () {
             $(":file").change(function () {
@@ -148,5 +139,4 @@
             });
         });
     </script>
-
 @endsection

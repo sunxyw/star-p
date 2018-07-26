@@ -10,3 +10,11 @@
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/json.min.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/sql.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
+
+<script>
+    $(function () {
+        $("input, textarea").keyup(function () {
+            hljs.initHighlightingOnLoad();
+        });
+    });
+</script>

@@ -36,6 +36,10 @@ class Project extends Model
     {
         $value = $this->image;
 
+        if (is_null($value)) {
+            return 'http://iph.href.lu/400x300';
+        }
+
         if (Str::startsWith($value, ['http://', 'https://', '//'])) {
             return $value;
         }

@@ -6,10 +6,14 @@
 
     <title>@yield('title') ~ {{ config('app.name') }}</title>
 
-    <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 
     <link href="{{ asset('css/fa.min.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('css/simditor/simditor.css') }}" rel="stylesheet">
+
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
 
     @yield('style')
 </head>
@@ -86,13 +90,18 @@
     </div>
 </div>
 
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('js/jquery.pjax.js') }}"></script>
 
 <script src="{{ asset('js/notify.js') }}"></script>
 <script src="{{ asset('js/validate.js') }}"></script>
 <script src="{{ asset('js/common.js') }}"></script>
+
+@include('layouts._highlight')
+<script src="{{ asset('js/simditor/module.min.js') }}"></script>
+<script src="{{ asset('js/simditor/hotkeys.min.js') }}"></script>
+<script src="{{ asset('js/simditor/uploader.min.js') }}"></script>
+<script src="{{ asset('js/simditor/simditor.min.js') }}"></script>
 
 @yield('script')
 </body>

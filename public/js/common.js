@@ -3,7 +3,7 @@ $(function () {
 
     $("#settings-extend").click(function () {
         $(this).children("i").toggleClass("fa-plus-square").toggleClass("fa-minus-square");
-        $("#settings li").each(function () {
+        $("#settings").find("li").each(function () {
             $(this).slideToggle();
         });
     });

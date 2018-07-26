@@ -38,7 +38,6 @@
     <table class="table table-hover table-bordered mt-3">
         <thead>
         <tr>
-            <th scope="col">#</th>
             <th scope="col">名称</th>
             <th scope="col">地址</th>
             <th scope="col">状态</th>
@@ -48,7 +47,6 @@
         <tbody>
         @foreach($projects as $project)
             <tr>
-                <th scope="row">{{ $project->id }}</th>
                 <td><a href="{{ route('projects.show', $project) }}">{{ $project->name }}</a></td>
                 <td>play.build-dragon.com</td>
                 <td>{{ $project->status }}</td>
