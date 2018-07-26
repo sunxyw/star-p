@@ -6,6 +6,8 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class ProjectsController extends Controller
 {
@@ -25,7 +27,13 @@ class ProjectsController extends Controller
         $data = $request->except('image');
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $image = Storage::putFile('projects/images', $request->file('image'));
+            $img = Image::make($request->file('image')->getRealPath());
+            $img->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $img->insert('images/logo.png', 'bottom-right', null, 10);
+            $image = $img->save('storage/projects/images/' . $request->file('image')->hashName())->basePath();
+            $image = str_replace('storage/', '', $image);
             $data = array_add($data, 'image', $image);
         }
 
