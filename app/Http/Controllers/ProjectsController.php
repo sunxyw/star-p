@@ -52,7 +52,13 @@ class ProjectsController extends Controller
         $data = $request->except(['image', 'sync']);
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $image = Storage::putFile('projects/images', $request->file('image'));
+            $img = Image::make($request->file('image')->getRealPath());
+            $img->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $img->insert('images/logo.png', 'bottom-right', null, 10);
+            $image = $img->save('storage/projects/images/' . $request->file('image')->hashName())->basePath();
+            $image = str_replace('storage/', '', $image);
             $data = array_add($data, 'image', $image);
         } else {
             return response()->json(route('projects.create'));
@@ -67,5 +73,18 @@ class ProjectsController extends Controller
         $project = Project::create($data);
 
         return response()->json(route('projects.show', $project));
+    }
+
+    /**
+     * @param Project $project
+     * @author sunxyw <xy2496419818@gmail.com>
+     * @return bool
+     * @throws \Exception
+     */
+    public function destroy(Project $project)
+    {
+        $project->delete();
+
+        return response()->json(route('projects.index'));
     }
 }

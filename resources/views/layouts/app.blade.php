@@ -92,10 +92,12 @@
 
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('js/jquery.pjax.js') }}"></script>
+<script src="{{ asset('js/sweetalert.min.js') }}"></script>
 
 <script src="{{ asset('js/notify.js') }}"></script>
 <script src="{{ asset('js/validate.js') }}"></script>
 <script src="{{ asset('js/common.js') }}"></script>
+<script src="{{ asset('js/projects.js') }}"></script>
 
 @include('layouts._highlight')
 <script src="{{ asset('js/simditor/module.min.js') }}"></script>

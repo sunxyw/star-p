@@ -44,22 +44,25 @@
 
     <div class="row">
         <div class="col-md-9">
-            <table class="table table-hover table-bordered">
+            <table class="table table-hover table-bordered mt-3">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">名称</th>
                     <th scope="col">地址</th>
                     <th scope="col">状态</th>
+                    <th scope="col">操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach((new App\Models\Project)->orderBy('created_at', 'desc')->limit(5)->get() as $project)
-                    <tr>
-                        <th scope="row">{{ $project->id }}</th>
+                @foreach(\App\Models\Project::orderBy('name')->limit(5)->get() as $project)
+                    <tr data-project="{{ $project->id }}">
                         <td><a href="{{ route('projects.show', $project) }}">{{ $project->name }}</a></td>
                         <td>play.build-dragon.com</td>
-                        <td>{{ $project->status }}</td>
+                        <td>{{ $project->status_text }}</td>
+                        <td>
+                            <a data-destory="{{ $project->id }}" href="{{ route('projects.destroy', $project) }}"
+                               class="badge badge-danger">删除</a>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>

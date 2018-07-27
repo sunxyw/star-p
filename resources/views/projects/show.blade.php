@@ -19,7 +19,22 @@
 
                         <div class="col-md-6">
                             <ul class="list-group list-group-flush">
-                                <span class="badge badge-secondary">{{ $project->status }}</span>
+                                @switch($project->status)
+                                    @case('uncommitted')
+                                    <li class="badge badge-secondary">{{ $project->status_text }}</li>
+                                    @break
+                                    @case('pending')
+                                    <li class="badge badge-info">{{ $project->status_text }}</li>
+                                    @break
+                                    @case('passed')
+                                    <li class="badge badge-success">{{ $project->status_text }}</li>
+                                    @break
+                                    @case('denied')
+                                    <li class="badge badge-danger">{{ $project->status_text }}</li>
+                                    @break
+                                    @default
+                                    <li class="badge badge-secondary">未知状态</li>
+                                @endswitch
                                 <li class="list-group-item">
                                     <h4>{{ $project->name }}</h4>
                                 </li>
@@ -77,7 +92,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">名称</span>
                             </div>
-                            <input type="text" name="name" class="form-control" title="名称" value="{{ $project->name }}" required>
+                            <input type="text" name="name" class="form-control" title="名称" value="{{ $project->name }}"
+                                   required>
                         </div>
 
                         <textarea name="info" class="form-control" title="介绍" required>
@@ -85,9 +101,10 @@
                         </textarea>
 
                         <div class="custom-file mt-2">
-                            <input type="file" class="custom-file-input" name="image" id="image"
-                                   value="{{ $project->image }}" accept="image/*">
-                            <label class="custom-file-label" for="image">选择代表图</label>
+                            <input type="file" class="custom-file-input" name="image" id="image" accept="image/*">
+                            <label class="custom-file-label" for="image">
+                                {{ str_replace('projects/images/', '', $project->image) }}
+                            </label>
                         </div>
 
                         <button class="btn btn-success float-right mt-2" type="submit" id="submit">保存</button>

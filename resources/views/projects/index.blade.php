@@ -41,18 +41,26 @@
             <th scope="col">名称</th>
             <th scope="col">地址</th>
             <th scope="col">状态</th>
-            <th scope="col">创建于</th>
+            <th scope="col">操作</th>
         </tr>
         </thead>
         <tbody>
         @foreach($projects as $project)
-            <tr>
+            <tr data-project="{{ $project->id }}">
                 <td><a href="{{ route('projects.show', $project) }}">{{ $project->name }}</a></td>
                 <td>play.build-dragon.com</td>
-                <td>{{ $project->status }}</td>
-                <td>{{ $project->created_at->diffForHumans() }}</td>
+                <td>{{ $project->status_text }}</td>
+                <td>
+                    <a data-destory="{{ $project->id }}" href="{{ route('projects.destroy', $project) }}"
+                       class="badge badge-danger">删除</a>
+                </td>
             </tr>
         @endforeach
         </tbody>
     </table>
+
+    <form id="destory-form">
+        @csrf
+        @method('DELETE')
+    </form>
 @endsection

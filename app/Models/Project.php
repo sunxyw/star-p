@@ -27,9 +27,9 @@ class Project extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getStatusAttribute($value)
+    public function getStatusTextAttribute()
     {
-        return self::$statusMap[$value];
+        return self::$statusMap[$this->status];
     }
 
     public function getImageUrlAttribute()
