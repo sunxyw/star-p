@@ -60,7 +60,7 @@
                 </h6>
                 <ul id="settings" class="nav flex-column mb-2">
                     <li class="nav-item">
-                        <a class="nav-link" href="">
+                        <a class="nav-link" href="{{ route('users.index') }}">
                             <i class="fas fa-users fa-fw"></i>&ensp;
                             用户管理
                         </a>

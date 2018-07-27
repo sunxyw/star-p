@@ -21,6 +21,7 @@ class CreateProjectsTable extends Migration
             $table->text('image')->nullable();
             $table->string('status')->index()->default(\App\Models\Project::STATUS_UNCOMMITTED);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Project extends Model
 {
+    use SoftDeletes;
+
     const STATUS_UNCOMMITTED = 'uncommitted';
     const STATUS_PENDING = 'pending';
     const STATUS_PASSED = 'passed';
@@ -36,7 +39,7 @@ class Project extends Model
     {
         $value = $this->image;
 
-        if (is_null($value)) {
+        if (is_null($value) || !Storage::exists($value)) {
             return 'http://iph.href.lu/400x300';
         }
 

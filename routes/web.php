@@ -5,6 +5,7 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
     Route::get('/', 'RootController@index')->name('index');
     Route::resource('projects', 'ProjectsController');
+    Route::resource('users', 'UsersController');
 
     Route::prefix('settings')->namespace('Settings')->group(function () {
         //Route::resource('users', 'UsersController');

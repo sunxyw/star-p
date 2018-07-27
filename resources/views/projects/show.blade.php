@@ -120,7 +120,6 @@
                 var files = $(this).prop('files');//获取到文件列表
 
                 if (files.length === 0) {
-                    alert('请选择文件');
                     return false;
                 } else {
                     var reader = new FileReader();
