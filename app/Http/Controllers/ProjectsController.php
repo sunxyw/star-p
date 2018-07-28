@@ -9,9 +9,17 @@ use Intervention\Image\Facades\Image;
 
 class ProjectsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $projects = Project::orderBy('name')->paginate();
+        if ($request->has('settings')) {
+            if ($request->has('withTrashed')) {
+
+            } else {
+                $projects = Project::orderBy('name')->paginate();
+            }
+        } else {
+            $projects = Project::where('user_id', Auth::id())->orderBy('name')->paginate();
+        }
         return view('projects.index', compact('projects'));
     }
 

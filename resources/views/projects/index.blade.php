@@ -11,7 +11,7 @@
             </a>
         </div>
 
-        <div class="btn-group" role="group">
+        <div class="btn-group mr-2" role="group">
             <button type="button" class="btn btn-info">
                 <i class="fas fa-file-import"></i>
                 导入
@@ -20,6 +20,13 @@
                 <i class="fas fa-file-export"></i>
                 导出
             </button>
+        </div>
+
+        <div class="btn-group" role="group">
+            <a href="?settings&withTrashed" class="btn btn-primary">
+                <i class="far fa-eye"></i>
+                显示被删除项目
+            </a>
         </div>
 
         <form class="ml-auto">
@@ -39,6 +46,9 @@
         <thead>
         <tr>
             <th scope="col">名称</th>
+            @if(request()->has('settings'))
+                <th scope="col">所属用户</th>
+            @endif
             <th scope="col">地址</th>
             <th scope="col">状态</th>
             <th scope="col">操作</th>
@@ -48,6 +58,9 @@
         @foreach($projects as $project)
             <tr data-project="{{ $project->id }}">
                 <td><a href="{{ route('projects.show', $project) }}">{{ $project->name }}</a></td>
+                @if(request()->has('settings'))
+                    <td><a href="{{ route('users.show', $project->user) }}">{{ $project->user->name }}</a></td>
+                @endif
                 <td>play.build-dragon.com</td>
                 <td>{{ $project->status_text }}</td>
                 <td>

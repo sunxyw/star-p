@@ -45,7 +45,8 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link {{ activeIf(request()->is('projects', 'projects/*')) }}" href="{{ route('projects.index') }}">
+                        <a class="nav-link {{ activeIf(request()->is('projects', 'projects/*') && !request()->has('settings')) }}"
+                           href="{{ route('projects.index') }}">
                             <i class="fas fa-sitemap fa-fw"></i>&ensp;
                             我的项目
                         </a>
@@ -60,14 +61,16 @@
                 </h6>
                 <ul id="settings" class="nav flex-column mb-2">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('users.index') }}">
+                        <a class="nav-link {{ activeIf(request()->is('users', 'users/*')) }}"
+                           href="{{ route('users.index') }}">
                             <i class="fas fa-users fa-fw"></i>&ensp;
                             用户管理
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link {{ activeIf(request()->is('projects', 'projects/*') && request()->has('settings')) }}"
+                           href="{{ route('projects.index', ['settings']) }}">
                             <i class="fas fa-briefcase fa-fw"></i>&ensp;
                             项目管理
                         </a>

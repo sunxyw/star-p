@@ -39,7 +39,8 @@
                                     <h4>{{ $project->name }}</h4>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>负责人：</b>{{ $project->user->name }}
+                                    <b>负责人：</b>
+                                    <a href="{{ route('users.show', $project->user) }}">{{ $project->user->name }}</a>
                                 </li>
                                 <li class="list-group-item">{!! $project->info !!}</li>
                                 <li class="list-group-item text-right text-muted">
