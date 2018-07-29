@@ -38,7 +38,8 @@
             <div class="sidebar-sticky">
                 <ul id="default" class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link {{ activeIf(request()->is('/')) }}" href="{{ route('index') }}">
+                        <a class="nav-link {{ activeIf(request()->is('/')) }}" href="{{ route('index') }}"
+                           data-pjax="no">
                             <i class="fas fa-tachometer-alt fa-fw"></i>&ensp;
                             控制面板
                         </a>
@@ -46,7 +47,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link {{ activeIf(request()->is('projects', 'projects/*') && !request()->has('settings')) }}"
-                           href="{{ route('projects.index') }}">
+                           href="{{ route('projects.index') }}" data-pjax="no">
                             <i class="fas fa-sitemap fa-fw"></i>&ensp;
                             我的项目
                         </a>
@@ -62,7 +63,7 @@
                 <ul id="settings" class="nav flex-column mb-2">
                     <li class="nav-item">
                         <a class="nav-link {{ activeIf(request()->is('users', 'users/*')) }}"
-                           href="{{ route('users.index') }}">
+                           href="{{ route('users.index') }}" data-pjax="no">
                             <i class="fas fa-users fa-fw"></i>&ensp;
                             用户管理
                         </a>
@@ -70,7 +71,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link {{ activeIf(request()->is('projects', 'projects/*') && request()->has('settings')) }}"
-                           href="{{ route('projects.index', ['settings']) }}">
+                           href="{{ route('projects.index', ['settings']) }}" data-pjax="no">
                             <i class="fas fa-briefcase fa-fw"></i>&ensp;
                             项目管理
                         </a>
@@ -87,7 +88,9 @@
                 <h1 class="h2">@yield('title')</h1>
             </div>
 
-            @yield('content')
+            <div id="content">
+                @yield('content')
+            </div>
 
         </main>
     </div>

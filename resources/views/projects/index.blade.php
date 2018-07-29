@@ -23,10 +23,19 @@
         </div>
 
         <div class="btn-group" role="group">
-            <a href="?settings&withTrashed" class="btn btn-primary">
-                <i class="far fa-eye"></i>
-                显示被删除项目
-            </a>
+            @if(request()->has('settings'))
+                @if(request()->has('withTrashed'))
+                    <a href="?settings" class="btn btn-primary">
+                        <i class="far fa-eye-slash"></i>
+                        隐藏被删除项目
+                    </a>
+                @else
+                    <a href="?settings&withTrashed" class="btn btn-primary">
+                        <i class="far fa-eye"></i>
+                        显示被删除项目
+                    </a>
+                @endif
+            @endif
         </div>
 
         <form class="ml-auto">
@@ -64,15 +73,22 @@
                 <td>play.build-dragon.com</td>
                 <td>{{ $project->status_text }}</td>
                 <td>
-                    <a data-destory="{{ $project->id }}" href="{{ route('projects.destroy', $project) }}"
-                       class="badge badge-danger">删除</a>
+                    @if($project->trashed())
+                        <a data-restore="{{ $project->id }}" data-url="{{ route('projects.restore', $project) }}"
+                           href="javascript:;"
+                           class="badge badge-info">恢复</a>
+                    @else
+                        <a data-destroy="{{ $project->id }}" data-url="{{ route('projects.destroy', $project) }}"
+                           href="javascript:;"
+                           class="badge badge-danger">删除</a>
+                    @endif
                 </td>
             </tr>
         @endforeach
         </tbody>
     </table>
 
-    <form id="destory-form">
+    <form id="destroy-form">
         @csrf
         @method('DELETE')
     </form>

@@ -32,6 +32,9 @@ class Project extends Model
 
     public function getStatusTextAttribute()
     {
+        if ($this->trashed()) {
+            return '已删除';
+        }
         return self::$statusMap[$this->status];
     }
 

@@ -13,7 +13,7 @@ class ProjectsController extends Controller
     {
         if ($request->has('settings')) {
             if ($request->has('withTrashed')) {
-
+                $projects = Project::withTrashed()->orderBy('name')->paginate();
             } else {
                 $projects = Project::orderBy('name')->paginate();
             }
@@ -45,7 +45,7 @@ class ProjectsController extends Controller
 
         $project->update($data);
 
-        return response()->json(route('projects.show', $project));
+        return 'yes';
     }
 
     public function create()
@@ -67,7 +67,7 @@ class ProjectsController extends Controller
             $image = str_replace('storage/', '', $image);
             $data = array_add($data, 'image', $image);
         } else {
-            return response()->json(route('projects.show', $project));
+            return abort(500);
         }
 
         $data = array_add($data, 'user_id', Auth::id());
@@ -78,7 +78,7 @@ class ProjectsController extends Controller
 
         $project = Project::create($data);
 
-        return response()->json(route('projects.show', $project));
+        return 'yes';
     }
 
     /**
@@ -91,6 +91,6 @@ class ProjectsController extends Controller
     {
         $project->delete();
 
-        return response()->json(route('projects.index'));
+        return 'yes';
     }
 }

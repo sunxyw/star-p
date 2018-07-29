@@ -84,7 +84,7 @@
                     contentType: false,
                     success: function (data) {
                         success("数据已保存");
-                        location.href = data;
+                        location.href = "{{ route('projects.index') }}";
                     }
                 });
 
