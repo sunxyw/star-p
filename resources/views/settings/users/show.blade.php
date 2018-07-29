@@ -141,11 +141,11 @@
                             data: new FormData($('#destroy-form')[0]),
                             processData: false,
                             contentType: false,
-                            success: function (data) {
+                            success: function () {
                                 swal("已封禁 {{ $user->name }}", {
                                     icon: "success",
                                 });
-                                $.pjax.reload("#u-info");
+                                location.href = "{{ route('users.index') }}";
                             }
                         });
                         @endif
@@ -162,7 +162,7 @@
                     data: new FormData($('#edit-form')[0]),
                     processData: false,
                     contentType: false,
-                    success: function (data) {
+                    success: function () {
                         success("数据已保存");
                         $.pjax.reload("#u-info");
                     }

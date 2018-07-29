@@ -23,7 +23,7 @@ class UsersController extends Controller
         $data = $request->only(['name']);
         $user->update($data);
 
-        return redirect()->route('users.show', $user)->with('success', '数据已保存');
+        return response()->json(route('users.show', $user));
     }
 
     /**

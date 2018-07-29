@@ -45,7 +45,7 @@ class ProjectsController extends Controller
 
         $project->update($data);
 
-        return redirect()->route('projects.show', $project)->with('success', '数据已保存');
+        return response()->json(route('projects.show', $project));
     }
 
     public function create()
@@ -67,7 +67,7 @@ class ProjectsController extends Controller
             $image = str_replace('storage/', '', $image);
             $data = array_add($data, 'image', $image);
         } else {
-            return response()->json(route('projects.create'));
+            return response()->json(route('projects.show', $project));
         }
 
         $data = array_add($data, 'user_id', Auth::id());
